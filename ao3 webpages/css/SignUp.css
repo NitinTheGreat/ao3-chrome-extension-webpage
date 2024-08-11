@@ -1,0 +1,466 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background-color: rgb(11, 199, 52);
+}
+
+.page-border {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(0deg, rgba(238, 238, 238, 0.50) 0%, rgba(238, 238, 238, 0.50) 100%), url(<path-to-image>) lightgray 0px -167.182px / 100% 130.96% no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80vw; /* 100vw - 2 * 10vw */
+  height: 80vh; /* 100vh - 2 * 10vh */
+  /* background-color: #fedeaa; */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: -8px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}
+
+.image-container {
+    position: relative;
+    width: 110%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .coverimg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .logo-vector {
+    position: absolute;
+    top: 37%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 15%; /* Adjust size as needed */
+    height: auto;
+    opacity: 1; /* Increase opacity for more visibility */
+    mix-blend-mode: overlay; /* Try 'overlay' or 'normal' if too transparent */
+    filter: drop-shadow(0px 0px 5px rgb(0, 0, 0)); /* Add a subtle shadow */
+  }
+  
+
+
+.signup {
+  width: 610px;
+  height: 85vh;
+  /* background-image: linear-gradient(to bottom, #C7CED9, #8B9EBA); */
+  background-color: white;
+  border-radius: 12px 0 0 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  padding-left: 70px;
+  padding-right: 70px;
+  /* position: fixed; */
+  /* right: 0; */
+  /* top: 0; */
+}
+.signup h1 {
+  color: #2B4771;
+font-family: Lato;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+text-transform: uppercase;
+margin-bottom: 5px;
+margin-top: 45px;
+}
+
+.signup p {
+  color: #5876A4;
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.input-box {
+  margin-bottom: 12px;
+ 
+}
+
+.input-fields {
+  position: relative;
+  border-radius: 8px;
+  border: 2px solid rgba(43, 71, 113, 0.50);
+  background: #EEE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+input {
+  width: 480px;
+  height: 40px;
+  padding-left: 55px;
+  border: none;
+  border-radius: 8px;
+  background: #EEE;
+  color: #5a5a5aca;
+  
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.divider {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(43, 71, 113, 0.80);
+  margin: 0 10px;
+}
+
+.signup-button {
+  width: 480px;
+  height: 6.5vh;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 2px solid #D1D0D0;
+  background: #285599;
+ 
+  box-shadow: #8B9EBA;
+  cursor: pointer;
+  color: #D9D9D9;
+font-family: Inter;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+/* text-transform: uppercase; */
+  text-align: center;
+  margin-top: 2vh;
+}
+
+.google-signup {
+  display: flex;
+  width: 480px;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 16px;
+  height: 6.5vh;
+  border-radius: 100px;
+  border: 2px solid rgba(43, 71, 113, 0.50);
+  background: #E8EBF0;
+  
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: #2B4771;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.google-signup img {
+  margin-right: 10px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 10px;
+  color: #2B4771;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+svg {
+  width: 14px;
+  height: 19px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.google-signup svg {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+
+/* responsiveness */
+/* Responsive Design */
+@media (max-width: 1440px) {
+    .signup {
+      width: 40vw;
+      height: 80vh;
+      padding-left: 2vw;
+      padding-right: 2vw;
+    }
+  
+    .signup h1 {
+      font-size: 1.5vw;
+    }
+  
+    .signup p {
+      font-size: 0.8vw;
+    }
+  
+    .input-box {
+      margin-bottom: 1vh;
+    }
+  
+    .input-fields {
+      border-radius: 0.5vw;
+      border-width: 0.1vw;
+    }
+  
+    input {
+      width: 100%;
+      padding-left: 2vw;
+      font-size: 0.9vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      width: 100%;
+      font-size: 1vw;
+    }
+  
+    .google-signup svg {
+      width: 2vw;
+      height: 2.5vh;
+    }
+  }
+  
+  @media (max-width: 1280px) {
+    .signup {
+      width: 45vw;
+      height: 85vh;
+    }
+  
+    .signup h1 {
+      font-size: 1.7vw;
+    }
+  
+    .signup p {
+      font-size: 0.9vw;
+    }
+  
+    input {
+      font-size: 1vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      font-size: 1.1vw;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .signup {
+      width: 50vw;
+      height: 90vh;
+    }
+  
+    .signup h1 {
+      font-size: 2vw;
+    }
+  
+    .signup p {
+      font-size: 1vw;
+    }
+  
+    input {
+      font-size: 1.1vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      font-size: 1.2vw;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .signup {
+      width: 90vw;
+      height: auto;
+      padding: 5vw;
+      box-shadow: none;
+      border-radius: 0;
+    }
+  
+    .signup h1 {
+      font-size: 2.5vw;
+    }
+  
+    .signup p {
+      font-size: 1.2vw;
+    }
+  
+    input {
+      width: 100%;
+      padding-left: 2.5vw;
+      font-size: 1.3vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      width: 100%;
+      height: auto;
+      padding: 1.5vh 2vw;
+      font-size: 1.5vw;
+      border-radius: 3vw;
+    }
+  
+    .google-signup svg {
+      width: 4vw;
+      height: 5vh;
+    }
+  
+    .image-container {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .signup {
+      width: 100vw;
+      padding: 8vw;
+    }
+  
+    .signup h1 {
+      font-size: 3.5vw;
+    }
+  
+    .signup p {
+      font-size: 1.4vw;
+    }
+  
+    input {
+      font-size: 1.5vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      padding: 2vh 3vw;
+      font-size: 2vw;
+    }
+  
+    .google-signup svg {
+      width: 6vw;
+      height: 7vh;
+    }
+  
+    .login-link {
+      font-size: 1.5vw;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    .signup {
+      padding: 10vw;
+    }
+  
+    .signup h1 {
+      font-size: 4.5vw;
+    }
+  
+    .signup p {
+      font-size: 1.8vw;
+    }
+  
+    input {
+      font-size: 1.8vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      padding: 2.5vh 4vw;
+      font-size: 2.5vw;
+    }
+  
+    .google-signup svg {
+      width: 7vw;
+      height: 8vh;
+    }
+  
+    .login-link {
+      font-size: 2vw;
+    }
+  }
+  
+  @media (max-width: 240px) {
+    .signup {
+      padding: 12vw;
+    }
+  
+    .signup h1 {
+      font-size: 5.5vw;
+    }
+  
+    .signup p {
+      font-size: 2.2vw;
+    }
+  
+    input {
+      font-size: 2vw;
+    }
+  
+    .signup-button,
+    .google-signup {
+      padding: 3vh 5vw;
+      font-size: 3vw;
+    }
+  
+    .google-signup svg {
+      width: 8vw;
+      height: 9vh;
+    }
+  
+    .login-link {
+      font-size: 2.5vw;
+    }
+  }
+  
