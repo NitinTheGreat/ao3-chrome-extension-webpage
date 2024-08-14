@@ -3,13 +3,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-body {
-  /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
-  height: 100vh;
+/* body {
+ height: 100vh;
   margin: 0;
   overflow: hidden;
   background-color: rgb(11, 199, 52);
-}
+} */
 
 .page-border {
   width: 100vw;
