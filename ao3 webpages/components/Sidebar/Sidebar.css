@@ -45,6 +45,7 @@
     align-items: center;
     width: 100%;
     padding-left: 0;
+    cursor: pointer;
   }
   
   .sidebar.open .icon-wrapper {
