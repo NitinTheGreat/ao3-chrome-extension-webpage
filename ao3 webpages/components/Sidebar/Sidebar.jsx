@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
+import { useNavigate } from 'react-router-dom';
+
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const navigate = useNavigate();
     const handleMouseEnter = () => {
         setIsOpen(true);
     };
@@ -12,6 +14,10 @@ const Sidebar = () => {
             setIsOpen(false);
         }
     };
+    const handleClickNotes = () => {
+        navigate('/notes'); // Redirects to the NotesPage
+      };
+    
 
     React.useEffect(() => {
         document.addEventListener('click', handleClickOutside);
@@ -53,12 +59,10 @@ const Sidebar = () => {
 
                     <span>Recommendations</span>
                 </div>
-                <div className="icon-wrapper">
+                <div className="icon-wrapper" onClick={handleClickNotes} style={{ cursor: 'pointer' }}>
                     <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.619 1.91309H20.1432H22.635C23.7396 1.91309 24.635 2.80852 24.635 3.91309V13.4664V23.9131C24.635 25.0177 23.7396 25.9131 22.635 25.9131H6.0636C4.95903 25.9131 4.0636 25.0177 4.0636 23.9131V22.9178V7.52917M10.619 1.91309L4.0636 7.52917M10.619 1.91309V7.02917C10.619 7.30531 10.3951 7.52917 10.119 7.52917H4.0636M8.625 12.4954H13.2847H16.1919M18.6261 15.7865H8.625M8.625 19.3803H14.7731" stroke="#6B7A8F" stroke-width="1.7" stroke-linecap="round" />
                     </svg>
-
-
                     <span>Notes</span>
                 </div>
                 <div className="icon-wrapper">

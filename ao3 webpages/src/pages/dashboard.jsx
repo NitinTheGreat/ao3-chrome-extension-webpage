@@ -61,11 +61,14 @@ export default function Component() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="ml-20 w-full"> {/* Margin-left set to 80px */}
+      <div className="ml-16 w-full"> {/* Margin-left set to 80px */}
         <div className="container mx-auto px-4 py-8 bg-gray-100 font-sans">
-          <section className="mb-8">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">Tags</h2>
-            <div className="bg-white p-4 rounded shadow">
+          <section className="mb-8" >
+            <h2 className="text-2xl font-bold text-blue-900 mb-4" style={{marginLeft: '7vw'}}>Tags</h2>
+            <div
+              className="bg-white p-4 rounded-lg shadow"
+              style={{ width: '81vw',marginLeft: '5vw' }} // Tags container width
+            >
               <div className="flex flex-wrap gap-2">
                 {visibleTags.map((tag, index) => (
                   <span
@@ -88,10 +91,21 @@ export default function Component() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">Recommendations</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4" style={{  marginLeft: '7vw' }} >Recommendations</h2>
+            <div
+              className="grid"
+              style={{ 
+                gridTemplateColumns: 'repeat(auto-fill, minmax(25.6vw, 1fr))',
+                gap: '2.08vw 0vw', // vertical and horizontal gaps
+                marginLeft: '5vw' 
+              }}
+            >
               {Object.entries(recommendations).map(([category, links]) => (
-                <div key={category} className="bg-white p-4 rounded shadow">
+                <div
+                  key={category}
+                  className="bg-white p-4 rounded-lg shadow"
+                  style={{ width: '25.6vw', height: '24.3vh' }} // Card width and height
+                >
                   <h3 className="font-bold text-blue-900 mb-2">{category}</h3>
                   <ul className="list-none space-y-1">
                     {links.map((link, index) => (
