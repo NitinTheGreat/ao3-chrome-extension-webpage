@@ -17,6 +17,10 @@ const Sidebar = () => {
     const handleClickNotes = () => {
         navigate('/notes'); // Redirects to the NotesPage
       };
+
+    const handleClickBookmarks = () => {
+        navigate('/bookmarks'); // Redirects to the BookmarksPage
+        };
     
 
     React.useEffect(() => {
@@ -65,7 +69,7 @@ const Sidebar = () => {
                     </svg>
                     <span>Notes</span>
                 </div>
-                <div className="icon-wrapper">
+                <div className="icon-wrapper" onClick={handleClickBookmarks} >
                     <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.9378 19.0615L21.8688 24.8981C22.5192 25.4458 23.5129 24.9834 23.5129 24.1332V18.5191V4.02148C23.5129 2.91691 22.6175 2.02148 21.5129 2.02148H8.95624H7.07446C5.96989 2.02148 5.07446 2.91692 5.07446 4.02149V24.1332C5.07446 24.9834 6.06823 25.4458 6.7186 24.8981L13.6496 19.0615C14.0218 18.748 14.5656 18.748 14.9378 19.0615Z" stroke="#6B7A8F" stroke-width="1.8" />
                     </svg>
