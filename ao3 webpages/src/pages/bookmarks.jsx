@@ -129,7 +129,7 @@ export default function Bookmarks() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #E0E0E0' }}>
-                <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Title <span style={{ color: '#757575', fontWeight: 'normal' }}>*Click to follow link</span></th>
+                <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Title <span style={{ color: '#757575', fontWeight: 'normal' }}></span></th>
                 <th style={{ padding: '15px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Fandom</th>
                 <th style={{ padding: '15px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Tags</th>
                 <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Date</th>
