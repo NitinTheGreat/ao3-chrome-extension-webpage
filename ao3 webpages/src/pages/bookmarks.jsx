@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
 // Demo data
 const demoBookmarks = [
@@ -35,10 +36,14 @@ export default function Bookmarks() {
       filteredBookmarks = filteredBookmarks.filter(bookmark => bookmark.fandom.toLowerCase().includes(selectedFandom.toLowerCase()));
     }
 
+    if (searchTerm) {
+      filteredBookmarks = filteredBookmarks.filter(bookmark => bookmark.fandom.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
     filteredBookmarks.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     setBookmarks(filteredBookmarks);
-  }, [selectedTag, selectedFandom]);
+  }, [selectedTag, selectedFandom, searchTerm]);
 
   const handleTagClick = (tag) => {
     setSelectedTag(tag === selectedTag ? "" : tag);
@@ -49,96 +54,99 @@ export default function Bookmarks() {
   };
 
   return (
-    <div style={{ backgroundColor: '#F8F8F8', padding: '20px',marginLeft:'68px', fontFamily: 'Arial, sans-serif' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Bookmarks</h1>
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <input
-            type="text"
-            placeholder="Search Fandoms"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              padding: '0 20px',
-              borderRadius: '30px',
-              border: '1px solid #ccc',
-              width: '100%',
-              maxWidth: '574px',
-              height: '44px',
-              fontSize: '16px'
-            }}
-          />
+    <div className="flex">
+      <Sidebar />
+      <div style={{ backgroundColor: '#F8F8F8', padding: '20px', marginLeft:'68px', fontFamily: 'Arial, sans-serif', width:'100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Bookmarks</h1>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <input
+              type="text"
+              placeholder="Search Fandoms"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{
+                padding: '0 20px',
+                borderRadius: '30px',
+                border: '1px solid #ccc',
+                width: '100%',
+                maxWidth: '574px',
+                height: '44px',
+                fontSize: '16px'
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
-        <div>
-          <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px',marginLeft:'20px', color: 'blue' }}>Tags :</h2>
-          <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '5px' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-              {allTags.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => handleTagClick(tag)}
-                  style={{
-                    padding: '5px 10px',
-                    borderRadius: '15px',
-                    border: 'none',
-                    backgroundColor: selectedTag === tag ? '#4A90E2' : '#F2F2F2',
-                    color: selectedTag === tag ? 'white' : '#333',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {tag}
-                </button>
-              ))}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+          <div>
+            <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px', marginLeft:'20px', color: 'blue' }}>Tags :</h2>
+            <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '5px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {allTags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => handleTagClick(tag)}
+                    style={{
+                      padding: '5px 10px',
+                      borderRadius: '15px',
+                      border: 'none',
+                      backgroundColor: selectedTag === tag ? '#4A90E2' : '#F2F2F2',
+                      color: selectedTag === tag ? 'white' : '#333',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px', marginLeft:'20px', color: 'blue' }}>Fandoms :</h2>
+            <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '5px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                {allFandoms.map((fandom) => (
+                  <button
+                    key={fandom}
+                    onClick={() => handleFandomClick(fandom)}
+                    style={{
+                      padding: '5px 10px',
+                      borderRadius: '15px',
+                      border: 'none',
+                      backgroundColor: selectedFandom === fandom ? '#4A90E2' : '#F2F2F2',
+                      color: selectedFandom === fandom ? 'white' : '#333',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {fandom}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px' ,marginLeft:'20px', color: 'blue' }}>Fandoms :</h2>
-          <div style={{ backgroundColor: 'white', padding: '15px', borderRadius: '5px' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-              {allFandoms.map((fandom) => (
-                <button
-                  key={fandom}
-                  onClick={() => handleFandomClick(fandom)}
-                  style={{
-                    padding: '5px 10px',
-                    borderRadius: '15px',
-                    border: 'none',
-                    backgroundColor: selectedFandom === fandom ? '#4A90E2' : '#F2F2F2',
-                    color: selectedFandom === fandom ? 'white' : '#333',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {fandom}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style={{ backgroundColor: 'white', borderRadius: '5px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: '1px solid #E0E0E0' }}>
-              <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Title <span style={{ color: '#757575', fontWeight: 'normal' }}>*Click to follow link</span></th>
-              <th style={{ padding: '15px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Fandom</th>
-              <th style={{ padding: '15px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Tags</th>
-              <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookmarks.map((bookmark, index) => (
-              <tr key={bookmark.id} style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F8F8F8' }}>
-                <td style={{ padding: '15px 60px', color: 'black', cursor: 'pointer' }}>{bookmark.title}</td>
-                <td style={{ padding: '15px' }}>{bookmark.fandom}</td>
-                <td style={{ padding: '15px' }}>{bookmark.tags.join(", ")}</td>
-                <td style={{ padding: '15px 60px' }}>{bookmark.date}</td>
+        <div style={{ backgroundColor: 'white', borderRadius: '5px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid #E0E0E0' }}>
+                <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Title <span style={{ color: '#757575', fontWeight: 'normal' }}>*Click to follow link</span></th>
+                <th style={{ padding: '15px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Fandom</th>
+                <th style={{ padding: '15px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Tags</th>
+                <th style={{ padding: '15px 60px', textAlign: 'left', color: '#2196F3', fontWeight: 'bold' }}>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {bookmarks.map((bookmark, index) => (
+                <tr key={bookmark.id} style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F8F8F8' }}>
+                  <td style={{ padding: '15px 60px', color: 'black', cursor: 'pointer' }}>{bookmark.title}</td>
+                  <td style={{ padding: '15px' }}>{bookmark.fandom}</td>
+                  <td style={{ padding: '15px' }}>{bookmark.tags.join(", ")}</td>
+                  <td style={{ padding: '15px 60px' }}>{bookmark.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

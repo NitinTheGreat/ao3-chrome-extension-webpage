@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Sidebar from '../../components/sidebar/sidebar'
+import Sidebar from '../../components/Sidebar/Sidebar'
 
 // Simulating fetched tags from backend
 const allTags = [
