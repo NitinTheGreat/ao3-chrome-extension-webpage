@@ -5,6 +5,7 @@ import SignUp from '../components/SignUp';
 import Dashboard from './pages/dashboard'; // Corrected import
 import NotesPage from './pages/Notes';
 import Bookmarks from './pages/bookmarks';
+import History from './pages/history';
 function App() {
   return (
     <Router>
@@ -14,6 +15,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} /> {/* Corrected route */}
         <Route path='/notes' element={<NotesPage />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/history" element={<History/>} />
+        {/* Add other routes here */}
         <Route path="/" element={<div>Hello World</div>} />
         {/* Add other routes here */}
       </Routes>

@@ -21,7 +21,9 @@ const Sidebar = () => {
     const handleClickBookmarks = () => {
         navigate('/bookmarks'); // Redirects to the BookmarksPage
         };
-    
+    const handleClickHistory = () => {
+        navigate('/history'); // Redirects to the HistoryPage
+        };
 
     React.useEffect(() => {
         document.addEventListener('click', handleClickOutside);
@@ -76,7 +78,7 @@ const Sidebar = () => {
 
                     <span>Bookmarks</span>
                 </div>
-                <div className="icon-wrapper">
+                <div className="icon-wrapper" onClick={handleClickHistory}>
                     <svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_674_491)">
                             <path d="M26.826 12.7186L27.725 12.6758L27.7239 12.6538L27.7218 12.6319L26.826 12.7186ZM8.51069 21.6765C8.11585 21.3746 7.551 21.4499 7.24906 21.8447C6.94713 22.2396 7.02244 22.8044 7.41728 23.1064L8.51069 21.6765ZM4.99442 14.1414C4.88054 10.4974 6.07148 7.77926 7.88086 5.93562C9.70206 4.07993 12.2027 3.05693 14.7838 2.91665C19.9301 2.63698 25.2573 5.85207 25.9302 12.8053L27.7218 12.6319C26.9438 4.59221 20.6636 0.79446 14.6861 1.11931C11.7054 1.2813 8.76503 2.4649 6.59619 4.67482C4.41552 6.89678 3.06735 10.1033 3.19529 14.1976L4.99442 14.1414ZM25.927 12.7614C26.3734 22.1354 16.1388 27.5098 8.51069 21.6765L7.41728 23.1064C16.233 29.8478 28.2459 23.6147 27.725 12.6758L25.927 12.7614Z" fill="#6B7A8F" />
