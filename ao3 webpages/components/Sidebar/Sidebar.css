@@ -1,84 +1,84 @@
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 66px; /* Width for collapsed state */
-    height: 100%;
-    fill: #FFF;
-    filter: drop-shadow(2px 0px 4px rgba(43, 42, 42, 0.2));
-    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.3);
-    transition: width 0.3s;
-    overflow: hidden;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .logo{
-    margin-top: 48px;
-    width: 55%;
-  }
-  .sidebar.open {
-    width: 280px; /* Width when the sidebar is expanded */
-    fill: #FFF;
-    background-color: #FFF;
-    filter: drop-shadow(2px 0px 4px rgba(0, 0, 0, 0.20));
-  }
-  
-  .icon-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    margin-top: 106px; /* Adjust margin to create a gap between logo and icons */
-    align-items: center; /* Center align icons when sidebar is collapsed */
-    justify-content: flex-start;
-  }
-  
-  .bottom-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align icons when sidebar is collapsed */
-    gap: 48px;
-    padding-bottom: 40px; /* Adds padding to ensure bottom icons don't touch screen edge */
-    /* width: 100%;  */
-    width: 55%;
-  }
-  
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding-left: 0;
-    cursor: pointer;
-  }
-  
-  .sidebar.open .icon-wrapper {
-    padding-left: 20px; /* Add padding when the sidebar is expanded */
-  }
-  
-  .icon-wrapper svg {
-    min-width: 24px; /* Fixed minimum width for icons */
-    height: 24px; /* Fixed height for icons */
-    flex-shrink: 0; /* Prevent icons from shrinking */
-  }
-  
-  .icon-wrapper span {
-    opacity: 0;
-    white-space: nowrap; /* Prevents text from wrapping */
-    transition: opacity 0.3s;
-    margin-left: 10px; /* Margin between icon and text */
-    overflow: hidden; /* Hide text overflow */
-    text-overflow: ellipsis; /* Add ellipsis to overflowing text */
-    max-width: 0; /* Initially hide the text */
-  }
-  
-  .sidebar.open .icon-wrapper span {
-    opacity: 1;
-    max-width: 180px; /* Adjust this width as needed for the expanded state */
-  }
-  
-  .sidebar.open .icon-wrapper {
-    justify-content: flex-start; /* Align icons and text to the start */
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 66px; /* Width for collapsed state */
+  height: 100%;
+  fill: #FFF;
+  filter: drop-shadow(2px 0px 4px rgba(43, 42, 42, 0.2));
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+.logo{
+  margin-top: 48px;
+  width: 55%;
+}
+.sidebar.open {
+  width: 280px; /* Width when the sidebar is expanded */
+  fill: #FFF;
+  background-color: #FFF;
+  filter: drop-shadow(2px 0px 4px rgba(0, 0, 0, 0.20));
+}
+
+.icon-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-top: 106px; /* Adjust margin to create a gap between logo and icons */
+  align-items: center; /* Center align icons when sidebar is collapsed */
+  justify-content: flex-start;
+}
+
+.bottom-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align icons when sidebar is collapsed */
+  gap: 48px;
+  padding-bottom: 40px; /* Adds padding to ensure bottom icons don't touch screen edge */
+  /* width: 100%;  */
+  width: 55%;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.sidebar.open .icon-wrapper {
+  padding-left: 20px; /* Add padding when the sidebar is expanded */
+}
+
+.icon-wrapper svg {
+  min-width: 24px; /* Fixed minimum width for icons */
+  height: 24px; /* Fixed height for icons */
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+.icon-wrapper span {
+  opacity: 0;
+  white-space: nowrap; /* Prevents text from wrapping */
+  transition: opacity 0.3s;
+  margin-left: 10px; /* Margin between icon and text */
+  overflow: hidden; /* Hide text overflow */
+  text-overflow: ellipsis; /* Add ellipsis to overflowing text */
+  max-width: 0; /* Initially hide the text */
+}
+
+.sidebar.open .icon-wrapper span {
+  opacity: 1;
+  max-width: 180px; /* Adjust this width as needed for the expanded state */
+}
+
+.sidebar.open .icon-wrapper {
+  justify-content: flex-start; /* Align icons and text to the start */
+}
