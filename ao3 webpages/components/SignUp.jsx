@@ -140,16 +140,7 @@ const SignUp = () => {
             <button type="submit" className="signup-button">Sign Up</button>
           </form>
 
-          <div className="or-divider">
-            <hr className="divider" />
-            <span>OR</span>
-            <hr className="divider" />
-          </div>
-
-          <button className="google-signup">
-            {/* SVG placeholder comment */}
-            Sign up with Google
-          </button>
+         
 
           <p className="login-link">Already have an account? <a href="#">Login</a></p>
         </div>
