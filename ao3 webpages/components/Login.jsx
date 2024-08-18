@@ -25,19 +25,42 @@ export default function Login() {
           email,
           password,
         }),
+        credentials: 'include', // Ensure cookies are sent and received
       });
-  
+    
       const data = await response.json();
-  
+      console.log(data);
+    
       if (response.ok) {
+        console.log(document.cookie);
+        // Retrieve tokens from cookies (**Security Concern: Local Storage**)
+        const cookies = document.cookie.split('; ');
+        let a = '';
+        let b = '';
+    
+        cookies.forEach(cookie => {
+          const [name, value] = cookie.split('=');
+          if (name === 'token') {
+            a = value;
+          } else if (name === 'refreshToken') {
+            b = value;
+          }
+        });
+        console.log('Token:', a);
+        console.log('Refresh Token:', b);
+    
         localStorage.setItem('isLoggedIn', 'true');
-  
         if (data.username) {
           localStorage.setItem('username', data.username);
         }
-  
+    
         setMessage('Login successful');
         setMessageType('success');
+    
+        // **Consider using a more secure storage solution for tokens**
+        // localStorage.setItem('token', a);
+        // localStorage.setItem('refreshToken', b);
+    
         // Redirect to dashboard after a short delay
         setTimeout(() => {
           window.location.href = '/dashboard';
@@ -51,7 +74,7 @@ export default function Login() {
       setMessage('An error occurred. Please try again.');
       setMessageType('error');
     }
-  };
+  }
 
   return (
     <div className="login-container">
