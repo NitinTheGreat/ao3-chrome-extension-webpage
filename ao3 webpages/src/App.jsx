@@ -6,16 +6,20 @@ import Dashboard from './pages/dashboard'; // Corrected import
 import NotesPage from './pages/Notes';
 import Bookmarks from './pages/bookmarks';
 import History from './pages/history';
+import Protect from './utils/Protected';
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} /> {/* Corrected route */}
-        <Route path='/notes' element={<NotesPage />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/history" element={<History/>} />
+        <Route element ={<Protect/>} >
+          <Route path="/dashboard" element={<Dashboard />} /> {/* Corrected route */}
+          <Route path='/notes' element={<NotesPage />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/history" element={<History/>} />
+        </Route>
         {/* Add other routes here */}
         <Route path="/" element={<div>Hello World</div>} />
         {/* Add other routes here */}

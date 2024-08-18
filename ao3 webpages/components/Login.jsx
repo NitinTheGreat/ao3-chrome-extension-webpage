@@ -30,8 +30,9 @@ export default function Login() {
       const data = await response.json();
   
       if (response.ok) {
-        document.cookie = `accessToken=${data.accessToken}; path=/; secure; samesite=strict`;
-        document.cookie = `refreshToken=${data.refreshToken}; path=/; secure; samesite=strict`;
+        document.cookie = `accessToken=${data.accessToken}; path=/; secure; samesite=strict; max-age=31536000`;
+        document.cookie = `refreshToken=${data.refreshToken}; path=/; secure; samesite=strict; max-age=31536000`;
+
   
         setMessage('Login successful');
         setMessageType('success');
