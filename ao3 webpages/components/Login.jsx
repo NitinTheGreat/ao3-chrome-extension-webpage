@@ -14,42 +14,51 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    try {
-      const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          email: email,
-          password: password
-        }),
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        document.cookie = `accessToken=${data.accessToken}; path=/; secure; samesite=strict; max-age=31536000`;
-        document.cookie = `refreshToken=${data.refreshToken}; path=/; secure; samesite=strict; max-age=31536000`;
 
-  
-        setMessage('Login successful');
-        setMessageType('success');
-  
-        setTimeout(() => {
-          window.location.href = '/dashboard';
-        }, 1500);
-      } else {
-        setMessage(data.message || 'Login failed');
-        setMessageType('error');
-      }
+    try {
+        const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                email: email,
+                password: password
+            }),
+        });
+
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        if (response.ok) {
+            // Ensure tokens are set correctly in localStorage
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+
+            // console.log('Tokens set in localStorage:', {
+            //     accessToken: localStorage.getItem('accessToken'),
+            //     refreshToken: localStorage.getItem('refreshToken'),
+            // });
+
+            
+            setMessage('Login successful');
+            setMessageType('success');
+
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1500);
+        } else {
+            setMessage(data.message || 'Login failed');
+            setMessageType('error');
+        }
     } catch (error) {
-      console.error('Error:', error);
-      setMessage('An error occurred. Please try again.');
-      setMessageType('error');
+        console.error('Error:', error);
+        setMessage('An error occurred. Please try again.');
+        setMessageType('error');
     }
-  };
+};
+
+
 
   return (
     <div className="login-container">
