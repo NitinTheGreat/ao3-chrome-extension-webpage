@@ -22,46 +22,20 @@ export default function Login() {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          email,
-          password,
+          email: email,
+          password: password
         }),
-        credentials: 'include', // Ensure cookies are sent and received
       });
-    
+  
       const data = await response.json();
-      console.log(data);
-    
+  
       if (response.ok) {
-        console.log(document.cookie);
-        // Retrieve tokens from cookies (**Security Concern: Local Storage**)
-        const cookies = document.cookie.split('; ');
-        let a = '';
-        let b = '';
-    
-        cookies.forEach(cookie => {
-          const [name, value] = cookie.split('=');
-          if (name === 'token') {
-            a = value;
-          } else if (name === 'refreshToken') {
-            b = value;
-          }
-        });
-        console.log('Token:', a);
-        console.log('Refresh Token:', b);
-    
-        localStorage.setItem('isLoggedIn', 'true');
-        if (data.username) {
-          localStorage.setItem('username', data.username);
-        }
-    
+        document.cookie = `accessToken=${data.accessToken}; path=/; secure; samesite=strict`;
+        document.cookie = `refreshToken=${data.refreshToken}; path=/; secure; samesite=strict`;
+  
         setMessage('Login successful');
         setMessageType('success');
-    
-        // **Consider using a more secure storage solution for tokens**
-        // localStorage.setItem('token', a);
-        // localStorage.setItem('refreshToken', b);
-    
-        // Redirect to dashboard after a short delay
+  
         setTimeout(() => {
           window.location.href = '/dashboard';
         }, 1500);
@@ -70,11 +44,11 @@ export default function Login() {
         setMessageType('error');
       }
     } catch (error) {
-      console.error('Error details:', error);
+      console.error('Error:', error);
       setMessage('An error occurred. Please try again.');
       setMessageType('error');
     }
-  }
+  };
 
   return (
     <div className="login-container">

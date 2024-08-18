@@ -26,12 +26,8 @@ const SignUp = () => {
     }
   
     try {
-      console.log('Sending request to:', 'https://ao3-chrome-extension-backend.onrender.com/auth/register');
-      console.log('Request body:', { username, email, password });
-  
       const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/register', {
         method: 'POST',
-        // mode: 'no-cors',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -42,22 +38,25 @@ const SignUp = () => {
         }),
       });
   
-      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
   
       if (response.ok) {
-        setMessage(data.message || 'Registration successful');
+        setMessage('Registration successful. Please log in.');
         // Reset form fields
         setUsername('');
         setEmail('');
         setPassword('');
         setConfirmPassword('');
+        
+        // Optionally, redirect to login page after a delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
       } else {
-        setMessage(data.message || 'Registration failed');
+        setMessage(data.message || 'Registration failed. Please try again.');
       }
     } catch (error) {
-      console.error('Error details:', error);
+      console.error('Error:', error);
       setMessage('An error occurred. Please try again.');
     }
   };
