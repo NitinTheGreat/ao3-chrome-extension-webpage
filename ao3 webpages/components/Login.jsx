@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "../css/Login.css";
 
 export default function Login() {
@@ -11,52 +11,92 @@ export default function Login() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  useEffect(() => {
+    // Check for existing tokens in localStorage
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    console.log('Checking tokens:', { accessToken, refreshToken });
+    if (accessToken && refreshToken) {
+      // Redirect to recommendations page if tokens are found
+      // window.location.href = '/dashboard';
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/validate', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Tokens': JSON.stringify({ accessToken, refreshToken }),
+            },
+        });
+
+        if (response.ok) {
+           window.location.href = '/dashboard';
+        } else {
+            // Tokens are invalid
+            console.log('Token validation failed:', response.status);
+           alert("Token validation failed");
+        }
+    } catch (error) {
+        console.error('Error during token validation:', error);
+       
+    }
+    }
+    checkAuth();
+    }
+  }
+  , []);
+  const dispatchTokenEvent = (accessToken, refreshToken) => {
+    const event = new CustomEvent("AO3_SEND_TOKENS", {
+      
+      detail: { accessToken, refreshToken }
+      
+    });
+    window.dispatchEvent(event);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                email: email,
-                password: password
-            }),
-        });
+      const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          email: email,
+          password: password,
+        }),
+      });
 
-        const data = await response.json();
-        console.log('Response data:', data);
+      const data = await response.json();
+      console.log('Response:', response);
+      console.log('Response data:', data);
 
-        if (response.ok) {
-            // Ensure tokens are set correctly in localStorage
-            localStorage.setItem('accessToken', data.accessToken);
-            localStorage.setItem('refreshToken', data.refreshToken);
+      if (response.ok) {
+        // Store tokens in localStorage
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken); 
 
-            // console.log('Tokens set in localStorage:', {
-            //     accessToken: localStorage.getItem('accessToken'),
-            //     refreshToken: localStorage.getItem('refreshToken'),
-            // });
+        // Dispatch event to send tokens to the extension
+        dispatchTokenEvent(data.accessToken, data.refreshToken);
 
-            
-            setMessage('Login successful');
-            setMessageType('success');
+        setMessage('Login successful');
+        setMessageType('success');
 
-            setTimeout(() => {
-                window.location.href = '/dashboard';
-            }, 1500);
-        } else {
-            setMessage(data.message || 'Login failed');
-            setMessageType('error');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        setMessage('An error occurred. Please try again.');
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 1500);
+      } else {
+        setMessage(data.message || 'Login failed');
         setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage('An error occurred. Please try again.');
+      setMessageType('error');
     }
-};
+  };
 
 
 
