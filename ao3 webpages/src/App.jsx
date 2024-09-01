@@ -8,7 +8,7 @@ import Component from './pages/notes';
 import Bookmarks from './pages/bookmarks';
 import History from './pages/history';
 import Protect from './utils/Protected';
-
+import SettingsPage from './pages/settings';
 function App() {
   return (
     <Router>
@@ -20,6 +20,7 @@ function App() {
           <Route path='/notes' element={<Component />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/history" element={<History/>} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Route>
         {/* Add other routes here */}
         <Route path="/" element={<div>Hello World</div>} />
