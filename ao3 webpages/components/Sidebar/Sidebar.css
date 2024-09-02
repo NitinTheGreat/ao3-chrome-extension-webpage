@@ -2,83 +2,149 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 66px; /* Width for collapsed state */
-  height: 100%;
-  fill: #FFF;
-  filter: drop-shadow(2px 0px 4px rgba(43, 42, 42, 0.2));
-  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s;
+  width: 68px;
+  height: 100vh;
+  background: var(--sidebar-menubar-content-box, #FFF);
+  box-shadow: 2px 0px 4px 0px rgba(0, 0, 0, 0.20);
+  transition: width 0.3s ease;
   overflow: hidden;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
 }
-.logo{
-  margin-top: 48px;
-  width: 55%;
-}
+
 .sidebar.open {
-  width: 280px; /* Width when the sidebar is expanded */
-  fill: #FFF;
-  background-color: #FFF;
-  filter: drop-shadow(2px 0px 4px rgba(0, 0, 0, 0.20));
+  width: 268px;
+  align-items: flex-start;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0;
+  width: 100%;
+}
+
+.sidebar.open .logo {
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.logo svg {
+  width: 38px;
+  height: 33px;
+}
+
+.logo span {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 10px;
+  white-space: nowrap;
+  display: none;
+}
+
+.sidebar.open .logo span {
+  display: inline;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 .icon-container {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  margin-top: 106px; /* Adjust margin to create a gap between logo and icons */
-  align-items: center; /* Center align icons when sidebar is collapsed */
-  justify-content: flex-start;
+  gap: 32px;
+  margin-top: 64px;
+  width: 100%;
+  align-items: center;
+}
+
+.sidebar.open .icon-container {
+  align-items: flex-start;
 }
 
 .bottom-icons {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align icons when sidebar is collapsed */
-  gap: 48px;
-  padding-bottom: 40px; /* Adds padding to ensure bottom icons don't touch screen edge */
-  /* width: 100%;  */
-  width: 55%;
+  gap: 32px;
+  margin-bottom: 48px;
+  width: 100%;
+  align-items: center;
+}
+
+.sidebar.open .bottom-icons {
+  align-items: flex-start;
 }
 
 .icon-wrapper {
   display: flex;
   align-items: center;
-  width: 100%;
-  padding-left: 0;
+  justify-content: center;
+  padding: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 40px;
+  height: 40px;
+  position: relative;
 }
 
 .sidebar.open .icon-wrapper {
-  padding-left: 20px; /* Add padding when the sidebar is expanded */
+  justify-content: flex-start;
+  padding: 8px 20px;
+  width: 100%;
+}
+
+.icon-wrapper:hover {
+  background-color: rgba(46, 97, 181, 0.1);
 }
 
 .icon-wrapper svg {
-  min-width: 24px; /* Fixed minimum width for icons */
-  height: 24px; /* Fixed height for icons */
-  flex-shrink: 0; /* Prevent icons from shrinking */
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar.open .icon-wrapper svg {
+  margin-right: 16px;
 }
 
 .icon-wrapper span {
-  opacity: 0;
-  white-space: nowrap; /* Prevents text from wrapping */
-  transition: opacity 0.3s;
-  margin-left: 10px; /* Margin between icon and text */
-  overflow: hidden; /* Hide text overflow */
-  text-overflow: ellipsis; /* Add ellipsis to overflowing text */
-  max-width: 0; /* Initially hide the text */
+  font-size: 16px;
+  white-space: nowrap;
+  display: none;
 }
 
 .sidebar.open .icon-wrapper span {
-  opacity: 1;
-  max-width: 180px; /* Adjust this width as needed for the expanded state */
+  display: inline;
+  animation: slideIn 0.8s ease-in-out;
 }
 
-.sidebar.open .icon-wrapper {
-  justify-content: flex-start; /* Align icons and text to the start */
+.icon-wrapper.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #2E61B5;
+}
+
+.icon-wrapper.active svg path {
+  fill: #2E61B5;
+  stroke: #2E61B5;
+}
+
+.icon-wrapper.active span {
+  color: #2E61B5;
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
