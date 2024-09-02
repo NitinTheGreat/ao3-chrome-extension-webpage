@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Edit2, Heart } from 'lucide-react';
-
+import Sidebar from '../../components/Sidebar/Sidebar';
 const SettingsPage = () => {
   const [username, setUsername] = useState('rounakag');
   const [email, setEmail] = useState('rounak2860@gmail.com');
@@ -13,6 +13,8 @@ const SettingsPage = () => {
       margin: 0,
       padding: 0,
       minHeight: '100vh',
+      minWidth: '80vw',
+      marginLeft: '15vw',
     },
     container: {
       maxWidth: '1200px',
@@ -129,6 +131,7 @@ const SettingsPage = () => {
     toggleButtonHover: {
       transform: 'scale(1.05)',
     },
+    
   };
 
   const handleProfilePictureHover = () => {
@@ -137,78 +140,81 @@ const SettingsPage = () => {
   };
 
   return (
-    <div style={styles.body}>
-      <div style={styles.container}>
-        <header style={styles.header}>
-          <h1 style={styles.title}>Settings</h1>
-          <span style={styles.madeWith}>
-            Made with <Heart size={16} style={styles.heart} /> by GDSC - VIT
-          </span>
-        </header>
-        <h2 style={styles.sectionTitle}>Profile</h2>
-        <section style={styles.section}>
-          
-          <div style={styles.profileContainer}>
-            <div style={styles.profileInputs}>
-              <div style={styles.inputContainer}>
-                <label style={styles.label}>Username</label>
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  style={styles.input}
-                  onMouseEnter={(e) => Object.assign(e.target.style, styles.inputHover)}
-                  onMouseLeave={(e) => Object.assign(e.target.style, styles.input)}
-                />
-                <Edit2 size={16} style={styles.editIcon} />
+    <div className="flex bg-gray-50">
+      <Sidebar />
+      <div style={styles.body}>
+        <div style={styles.container}>
+          <header style={styles.header}>
+            <h1 style={styles.title}>Settings</h1>
+            <span style={styles.madeWith}>
+              Made with <Heart size={16} style={styles.heart} /> by GDSC - VIT
+            </span>
+          </header>
+          <h2 style={styles.sectionTitle}>Profile</h2>
+          <section style={styles.section}>
+
+            <div style={styles.profileContainer}>
+              <div style={styles.profileInputs}>
+                <div style={styles.inputContainer}>
+                  <label style={styles.label}>Username</label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    style={styles.input}
+                    onMouseEnter={(e) => Object.assign(e.target.style, styles.inputHover)}
+                    onMouseLeave={(e) => Object.assign(e.target.style, styles.input)}
+                  />
+                  <Edit2 size={16} style={styles.editIcon} />
+                </div>
+                <div style={styles.inputContainer}>
+                  <label style={styles.label}>Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={styles.input}
+                    onMouseEnter={(e) => Object.assign(e.target.style, styles.inputHover)}
+                    onMouseLeave={(e) => Object.assign(e.target.style, styles.input)}
+                  />
+                  <Edit2 size={16} style={styles.editIcon} />
+                </div>
               </div>
-              <div style={styles.inputContainer}>
-                <label style={styles.label}>Email</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={styles.input}
-                  onMouseEnter={(e) => Object.assign(e.target.style, styles.inputHover)}
-                  onMouseLeave={(e) => Object.assign(e.target.style, styles.input)}
-                />
-                <Edit2 size={16} style={styles.editIcon} />
-              </div>
+              <div
+                style={styles.profilePicture}
+                onMouseEnter={handleProfilePictureHover}
+              ></div>
             </div>
-            <div 
-              style={styles.profilePicture}
-              onMouseEnter={handleProfilePictureHover}
-            ></div>
-          </div>
-        </section>
-        <h2 style={styles.sectionTitle}>Appearance</h2>
-        <section style={styles.section}>
-          
-          <div style={styles.toggleContainer}>
-            <button
-              onClick={() => setAppearance('light')}
-              style={{
-                ...styles.toggleButton,
-                ...(appearance === 'light' ? styles.activeToggle : styles.inactiveToggle),
-              }}
-              onMouseEnter={(e) => Object.assign(e.target.style, styles.toggleButtonHover)}
-              onMouseLeave={(e) => Object.assign(e.target.style, appearance === 'light' ? {...styles.toggleButton, ...styles.activeToggle} : {...styles.toggleButton, ...styles.inactiveToggle})}
-            >
-              Light
-            </button>
-            <button
-              onClick={() => setAppearance('dark')}
-              style={{
-                ...styles.toggleButton,
-                ...(appearance === 'dark' ? styles.activeToggle : styles.inactiveToggle),
-              }}
-              onMouseEnter={(e) => Object.assign(e.target.style, styles.toggleButtonHover)}
-              onMouseLeave={(e) => Object.assign(e.target.style, appearance === 'dark' ? {...styles.toggleButton, ...styles.activeToggle} : {...styles.toggleButton, ...styles.inactiveToggle})}
-            >
-              Dark
-            </button>
-          </div>
-        </section>
+          </section>
+          <h2 style={styles.sectionTitle}>Appearance</h2>
+          <section style={styles.section}>
+
+            <div style={styles.toggleContainer}>
+              <button
+                onClick={() => setAppearance('light')}
+                style={{
+                  ...styles.toggleButton,
+                  ...(appearance === 'light' ? styles.activeToggle : styles.inactiveToggle),
+                }}
+                onMouseEnter={(e) => Object.assign(e.target.style, styles.toggleButtonHover)}
+                onMouseLeave={(e) => Object.assign(e.target.style, appearance === 'light' ? { ...styles.toggleButton, ...styles.activeToggle } : { ...styles.toggleButton, ...styles.inactiveToggle })}
+              >
+                Light
+              </button>
+              <button
+                onClick={() => setAppearance('dark')}
+                style={{
+                  ...styles.toggleButton,
+                  ...(appearance === 'dark' ? styles.activeToggle : styles.inactiveToggle),
+                }}
+                onMouseEnter={(e) => Object.assign(e.target.style, styles.toggleButtonHover)}
+                onMouseLeave={(e) => Object.assign(e.target.style, appearance === 'dark' ? { ...styles.toggleButton, ...styles.activeToggle } : { ...styles.toggleButton, ...styles.inactiveToggle })}
+              >
+                Dark
+              </button>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

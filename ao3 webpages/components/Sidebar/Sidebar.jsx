@@ -171,7 +171,7 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className="bottom-icons">
-                <div className="icon-wrapper">
+                <div className={`icon-wrapper ${activeItem === 'Settings' ? 'active' : ''}`} onClick={() => handleItemClick('Settings')}>
 
                     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.3137 15.273C14.1212 15.273 15.5865 13.8077 15.5865 12.0003C15.5865 10.1928 14.1212 8.72754 12.3137 8.72754C10.5063 8.72754 9.04102 10.1928 9.04102 12.0003C9.04102 13.8077 10.5063 15.273 12.3137 15.273Z" stroke="#6B7A8F" strokeWidth="1.8" />
