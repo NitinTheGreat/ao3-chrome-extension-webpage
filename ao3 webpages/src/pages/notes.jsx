@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-
+import Sidebar from '../../components/Sidebar/Sidebar';
 const initialNotes = [
   { id: '1', title: 'The Shoebox Project', tags: ['Humor', 'Drama'], completed: false },
   { id: '2', title: 'Twist and Shout', tags: ['Angst', 'Historical', 'Tragedy'], completed: false },
@@ -141,7 +141,9 @@ export default function Component() {
   }
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="flex">
+      <Sidebar />
+    <div className="min-h-screen p-4 ml-16">
       <div className="container mx-auto bg-white rounded-lg p-6">
         <h1 className="text-2xl font-bold mb-4 text-blue-900">Notes</h1>
         
@@ -238,6 +240,7 @@ export default function Component() {
           </div>
         </div>
       )}
+    </div>
     </div>
   )
 }

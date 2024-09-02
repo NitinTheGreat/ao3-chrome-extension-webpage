@@ -122,7 +122,7 @@
 .icon-wrapper.active::before {
   content: '';
   position: absolute;
-  left: 0;
+  right:-1px ;
   top: 0;
   bottom: 0;
   width: 4px;

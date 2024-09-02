@@ -5,9 +5,69 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeItem, setActiveItem] = useState('');
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const styles = {
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        modal: {
+          display: 'flex',
+          flexDirection: 'column',
+          width: '560px',
+          height: '320px',
+          padding: '57px 84px 56px 84px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexShrink: 0,
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        },
+        title: {
+          color: '#2E5FB7',
+          fontSize: '36px',
+          fontWeight: 'bold',
+          marginBottom: '20px',
+        },
+        message: {
+          color: '#333',
+          fontSize: '24px',
+          textAlign: 'center',
+          marginBottom: '40px',
+        },
+        buttonContainer: {
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '20px',
+        },
+        button: {
+          padding: '10px 20px',
+          fontSize: '18px',
+          fontWeight: 'bold',
+          border: 'none',
+          borderRadius: '25px',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s',
+        },
+        cancelButton: {
+          backgroundColor: '#F0F0F0',
+          color: '#333',
+        },
+        logoutButton: {
+          backgroundColor: '#2E5FB7',
+          color: 'white',
+        },
+      };
     const handleMouseEnter = () => {
         setIsOpen(true);
     };
@@ -23,8 +83,24 @@ const Sidebar = () => {
     };
 
     const handleItemClick = (item) => {
-        setActiveItem(item);
-        navigate(`/${item.toLowerCase()}`);
+        if (item === 'Logout') {
+            setShowLogoutModal(true);
+        } 
+        else if(item === 'Recommendations') {
+            setActiveItem(item);
+            navigate('/dashboard');
+        }
+        else {
+            setActiveItem(item);
+            navigate(`/${item.toLowerCase()}`);
+        }
+    };
+    const handleLogout = () => {
+        console.log('logout');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+        showLogoutModal(false);
     };
 
     useEffect(() => {
@@ -116,9 +192,34 @@ const Sidebar = () => {
                     </svg>
                     <span>Logout</span>
                 </div>
+            {/* Logout modal  */}
+                {showLogoutModal && (
+                <div style={styles.overlay}>
+                <div style={styles.modal}>
+                  <h2 style={styles.title}>Attention !</h2>
+                  <p style={styles.message}>Are you sure you want to log out ?</p>
+                  <div style={styles.buttonContainer}>
+                    <button
+                      style={{ ...styles.button, ...styles.cancelButton }}
+                      onClick={() => setShowLogoutModal(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      style={{ ...styles.button, ...styles.logoutButton }}
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+                )}
+
             </div>
         </div>
     );
+    
 };
 
 export default Sidebar;
