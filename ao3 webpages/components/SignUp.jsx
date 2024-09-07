@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FiEye, FiEyeOff, FiUser, FiMail, FiLock } from 'react-icons/fi';
 import "../css/SignUp.css";
-const SignUp = () => {
+
+export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [username, setUsername] = useState('');
@@ -115,6 +116,4 @@ const SignUp = () => {
       </div>
     </div>
   );
-};
-
-export default SignUp;
+}
