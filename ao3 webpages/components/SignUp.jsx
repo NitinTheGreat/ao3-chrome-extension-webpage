@@ -51,6 +51,7 @@ export default function SignUp() {
   };
 
   return (
+    <div className="parent">
     <div className="signup-container">
       <div className="signup-image">
         <img src="../images/signup.png" alt="Signup background" />
@@ -114,6 +115,7 @@ export default function SignUp() {
           <p className="login-link">Already have an account? <a href="/login">Login</a></p>
         </div>
       </div>
+    </div>
     </div>
   );
 }
