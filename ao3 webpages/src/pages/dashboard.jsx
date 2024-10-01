@@ -19,10 +19,18 @@ export default function Component() {
   const tagsPerPageSmall = 2 * 8; // Adjust based on your tag height and container size
 
   useEffect(() => {
-    axios.get('https://ao3-aiml.onrender.com/recommendations/Dipit12')
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    console.log('Checking tokens:', { accessToken, refreshToken });
+    axios.get('https://ao3-chrome-extension-backend.onrender.com/recom',{
+      headers:{
+        'Tokens': JSON.stringify({ accessToken, refreshToken }),
+      }
+    })
       .then(response => {
-        const data = response.data;
+        const data = response.data.Data;
         const tags = Object.keys(data);
+        console.log({data:data,tags:tags});
         setAllTags(tags);
         setRecommendations(data);
         setFilteredRecommendations(data);
