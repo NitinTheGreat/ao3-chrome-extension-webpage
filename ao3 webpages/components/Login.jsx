@@ -73,12 +73,19 @@ export default function Login() {
         // Store tokens in localStorage
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-  
-        // Send token to Chrome extension
-        chrome.runtime.sendMessage("nnmmeljlhmhpnfphcpifdahblfmhlilm", { action: "storeToken", token: data.refreshToken }, function(response) {
-          console.log('Token sent to extension');
+        
+        // Send both tokens to the Chrome extension
+        chrome.runtime.sendMessage("nnmmeljlhmhpnfphcpifdahblfmhlilm", 
+          { action: "storeTokens", accessToken: data.accessToken, refreshToken: data.refreshToken }, 
+          function(response) {
+            if (chrome.runtime.lastError) {
+              console.error('Error sending message:', chrome.runtime.lastError);
+            } else {
+              console.log('Tokens sent to extension:', response);
+            }
         });
-  
+        
+        
         setMessage('Login successful');
         setMessageType('success');
   
@@ -227,7 +234,7 @@ return (
                 borderRadius: '4px',
                 fontSize: '16px',
                 cursor: 'pointer',
-                marginTop: '50px'
+                marginTop: '25px'
 
               }}
             >
