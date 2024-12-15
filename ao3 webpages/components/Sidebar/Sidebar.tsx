@@ -32,6 +32,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, isActive, onClick
     >
       {text}
     </motion.span>
+    <span className="mobile-text">{text}</span>
   </motion.div>
 );
 
@@ -147,8 +148,6 @@ const Sidebar: React.FC = () => {
           onClick={() => handleItemClick('History')}
           isOpen={isOpen}
         />
-      </div>
-      <div className="bottom-icons">
         <SidebarItem
           icon={<SettingsIcon />}
           text="Settings"
@@ -172,3 +171,4 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
+
