@@ -15,13 +15,13 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route element ={<Protect/>} >
+        {/* <Route element ={<Protect/>} > */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* Corrected route */}
           <Route path='/notes' element={<Component />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/history" element={<History/>} />
           <Route path="/settings" element={<SettingsPage />} />
-        </Route>
+        {/* </Route> */}
         {/* Add other routes here */}
         <Route path="/" element={<div>Hello World</div>} />
         {/* Add other routes here */}

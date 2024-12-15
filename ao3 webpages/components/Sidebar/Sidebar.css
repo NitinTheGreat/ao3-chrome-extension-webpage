@@ -2,56 +2,48 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 68px;
   height: 100vh;
   background: var(--sidebar-menubar-content-box, #FFF);
   box-shadow: 2px 0px 4px 0px rgba(0, 0, 0, 0.20);
-  transition: width 0.3s ease;
   overflow: hidden;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: width 0.3s ease;
 }
 
 .sidebar.open {
   width: 268px;
-  align-items: flex-start;
+}
+
+.sidebar:not(.open) {
+  width: 68px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 48px 0;
-  width: 100%;
-}
-
-.sidebar.open .logo {
   justify-content: flex-start;
-  padding-left: 20px;
+  padding: 48px 20px;
+  width: 100%;
 }
 
 .logo svg {
   width: 38px;
   height: 33px;
+  flex-shrink: 0;
 }
 
-.logo span {
+.logo-text {
   font-size: 18px;
   font-weight: 600;
   margin-left: 10px;
   white-space: nowrap;
-  display: none;
+  overflow: hidden;
 }
 
-.sidebar.open .logo span {
-  display: inline;
-  animation: fadeIn 0.6s ease-in-out;
-}
-
-.icon-container {
-  flex: 1;
+.menu-items {
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -60,91 +52,142 @@
   align-items: center;
 }
 
-.sidebar.open .icon-container {
-  align-items: flex-start;
-}
-
 .bottom-icons {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  margin-top: auto;
   margin-bottom: 48px;
   width: 100%;
   align-items: center;
 }
 
-.sidebar.open .bottom-icons {
-  align-items: flex-start;
-}
-
 .icon-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px;
+  padding: 8px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 40px;
-  height: 40px;
+  width: 100%;
   position: relative;
 }
 
-.sidebar.open .icon-wrapper {
-  justify-content: flex-start;
-  padding: 8px 20px;
-  width: 100%;
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
-.icon-wrapper:hover {
-  background-color: rgba(46, 97, 181, 0.1);
-}
-
-.icon-wrapper svg {
+.icon-container svg {
   width: 24px;
   height: 24px;
 }
 
-.sidebar.open .icon-wrapper svg {
-  margin-right: 16px;
-}
-
-.icon-wrapper span {
+.icon-text {
   font-size: 16px;
   white-space: nowrap;
-  display: none;
-}
-
-.sidebar.open .icon-wrapper span {
-  display: inline;
-  animation: slideIn 0.8s ease-in-out;
+  margin-left: 16px;
+  overflow: hidden;
 }
 
 .icon-wrapper.active::before {
   content: '';
   position: absolute;
-  right:-1px ;
+  right: 0;
   top: 0;
   bottom: 0;
   width: 4px;
   background-color: #2E61B5;
 }
 
-.icon-wrapper.active svg path {
-  fill: #2E61B5;
+.icon-wrapper.active svg {
   stroke: #2E61B5;
 }
 
-.icon-wrapper.active span {
+.icon-wrapper.active .icon-text {
   color: #2E61B5;
   font-weight: 600;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
 }
 
-@keyframes slideIn {
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+.modal {
+  background-color: white;
+  padding: 57px 84px 56px 84px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
+
+.modal h2 {
+  color: #2E5FB7;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.modal p {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cancel-button, .logout-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button {
+  background-color: #F0F0F0;
+  color: #333;
+}
+
+.logout-button {
+  background-color: #2E5FB7;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 68px !important;
+  }
+
+  .logo-text,
+  .icon-text {
+    display: none;
+  }
+
+  .icon-wrapper {
+    justify-content: center;
+    padding: 8px 0;
+  }
+
+  .icon-container {
+    margin: 0;
+  }
+}
+
