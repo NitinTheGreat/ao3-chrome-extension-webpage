@@ -173,7 +173,7 @@ export default function Notes() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+    <div className="flex flex-col mb-24 md:flex-row min-h-screen bg-gray-100">
       <Sidebar />
       <motion.div 
         className="w-full md:ml-16 px-4 md:px-8 py-8 font-sans"

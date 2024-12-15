@@ -82,7 +82,7 @@ export default function EnhancedRecommendations() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+    <div className="flex flex-col md:flex-row min-h-screen mb-18 bg-gray-100">
       <Sidebar />
       <div className="w-full md:ml-16 px-4 md:px-8 py-8 font-sans">
         <motion.div
