@@ -1,135 +1,147 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Heart, User, Mail } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
-const SettingsPage: React.FC = () => {
-  const [username] = useState('user');
-  const [email, setEmail] = useState('user@gmail.com');
+const SettingsPage = () => {
+  const [username, setUsername] = useState('');
+  const [newUsername, setNewUsername] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+  useEffect(() => {
+    fetchUsername();
+  }, []);
+
+  const fetchUsername = async () => {
+    setIsLoading(true);
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
+      const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/userdetail', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Tokens': JSON.stringify({ accessToken, refreshToken }),
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUsername(data.username);
+        setNewUsername(data.username);
+      } else {
+        throw new Error('Failed to fetch username');
+      }
+    } catch (error) {
+      console.error('Error fetching username:', error);
+      setError('Failed to load username. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-      },
-    },
+  const handleUsernameChange = async () => {
+    if (newUsername === username) {
+      setIsEditing(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      const refreshToken = localStorage.getItem('refreshToken');
+      const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/update_username', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Tokens': JSON.stringify({ accessToken, refreshToken }),
+        },
+        body: JSON.stringify({ new_username: newUsername }),
+      });
+
+      if (response.ok) {
+        setUsername(newUsername);
+        setIsEditing(false);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update username');
+      }
+    } catch (error) {
+      console.error('Error updating username:', error);
+      setError(error.message || 'Failed to update username. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="flex bg-gray-100 min-h-screen mb-24">
-      <Sidebar />
-      <div className="flex-1 p-8">
-        <motion.div
-          className="max-w-4xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.header className="flex justify-between items-center mb-8" variants={itemVariants}>
-            <h1 className="text-4xl font-bold text-gray-800">Settings</h1>
-            <span className="text-sm text-gray-600 ml-8">
-              Made with <Heart size={16} className="inline text-red-500" /> by GDSC - VIT
-            </span>
-          </motion.header>
-
-          <motion.section
-            className="bg-white rounded-lg shadow-lg p-8 mb-8"
-            variants={itemVariants}
-          >
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Profile</h2>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-              <div className="w-full md:w-2/3 space-y-6">
-                <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                    Username
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                    <input
-                      type="text"
-                      id="username"
-                      value={username}
-                      readOnly
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100 text-gray-700"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                </div>
+    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+      <Sidebar/>
+      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Settings</h1>
+        
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Profile</h2>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+                Username
+              </label>
+              <div className="flex items-center">
+                {isEditing ? (
+                  <input
+                    type="text"
+                    id="username"
+                    value={newUsername}
+                    onChange={(e) => setNewUsername(e.target.value)}
+                    className="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    disabled={isLoading}
+                  />
+                ) : (
+                  <span className="flex-grow px-3 py-2 bg-gray-100 text-gray-700 rounded-md">
+                    {isLoading ? 'Loading...' : username}
+                  </span>
+                )}
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="ml-2 px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  disabled={isLoading}
+                >
+                  {isEditing ? 'Cancel' : 'Edit'}
+                </button>
               </div>
-              <motion.div
-                className="w-32 h-32 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mt-6 md:mt-0 flex items-center justify-center text-white text-4xl font-bold"
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
+            </div>
+            {isEditing && (
+              <button
+                className="w-full px-4 py-2 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                onClick={handleUsernameChange}
+                disabled={isLoading}
               >
-                {username.charAt(0).toUpperCase()}
-              </motion.div>
-            </div>
-          </motion.section>
+                {isLoading ? 'Saving...' : 'Save Username'}
+              </button>
+            )}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+          </div>
+        </div>
 
-          <motion.section
-            className="bg-white rounded-lg shadow-lg p-8"
-            variants={itemVariants}
-          >
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Preferences</h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-700">Receive email notifications</span>
-                <label className="switch">
-                  <input type="checkbox" className="sr-only" />
-                  <span className="slider round"></span>
-                </label>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-gray-700">Two-factor authentication</span>
-                <label className="switch">
-                  <input type="checkbox" className="sr-only" />
-                  <span className="slider round"></span>
-                </label>
-              </div>
+        <div className="border-t border-gray-200 pt-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Preferences</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-700">Receive notifications</span>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" value="" className="sr-only peer" />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              </label>
             </div>
-          </motion.section>
-
-          <motion.div className="mt-8 text-center" variants={itemVariants}>
-            <motion.button
-              className="px-6 py-3 bg-indigo-600 text-white rounded-md font-semibold shadow-md"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Save Changes
-            </motion.button>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default SettingsPage;
+
