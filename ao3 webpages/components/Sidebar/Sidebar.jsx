@@ -90,6 +90,35 @@ const Sidebar = () => {
             setActiveItem(item);
             navigate('/dashboard');
         }
+        else if(item === 'Settings'){
+            const Username = async () => {
+                try {
+                    const accessToken = localStorage.getItem('accessToken');
+                    const refreshToken = localStorage.getItem('refreshToken');
+                  const response = await fetch('https://ao3-chrome-extension-backend.onrender.com/auth/userdetail', {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Tokens': JSON.stringify({ accessToken, refreshToken }),
+                    },
+                  });
+        
+                  if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('email', data.email);
+                    navigate('/settings');
+                  } else {
+                    // Tokens are invalid
+                    console.log('Token validation failed:', response.status);
+                    alert('Token validation failed please login');
+                  }
+                } catch (error) {
+                  console.error('Error during token validation:', error);
+                }
+              };
+            Username();
+        }
         else {
             setActiveItem(item);
             navigate(`/${item.toLowerCase()}`);

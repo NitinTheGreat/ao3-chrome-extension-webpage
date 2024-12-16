@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit2, Heart } from 'lucide-react';
 import Sidebar from '../../components/Sidebar/Sidebar';
 const SettingsPage = () => {
@@ -7,6 +7,18 @@ const SettingsPage = () => {
   const [appearance, setAppearance] = useState('light');
   const [isFlipping, setIsFlipping] = useState(false);
 
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    const storedEmail = localStorage.getItem('email');
+
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+  
   const styles = {
     body: {
       backgroundColor: '#f8f8f8',
