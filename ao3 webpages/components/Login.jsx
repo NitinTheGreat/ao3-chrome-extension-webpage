@@ -73,22 +73,26 @@ export default function Login() {
         // Store tokens in localStorage
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-        
+        console.log('setmsg');
         // Send both tokens to the Chrome extension
-        chrome.runtime.sendMessage("nnmmeljlhmhpnfphcpifdahblfmhlilm", 
-          { action: "storeTokens", accessToken: data.accessToken, refreshToken: data.refreshToken }, 
-          function(response) {
-            if (chrome.runtime.lastError) {
-              console.error('Error sending message:', chrome.runtime.lastError);
-            } else {
-              console.log('Tokens sent to extension:', response);
-            }
-        });
-        
-        
+        try{
+          chrome.runtime.sendMessage("nnmmeljlhmhpnfphcpifdahblfmhlilm", 
+            { action: "storeTokens", accessToken: data.accessToken, refreshToken: data.refreshToken }, 
+            function(response) {
+              if (chrome.runtime.lastError) {
+                console.error('Error sending message:', chrome.runtime.lastError);
+              } else {
+                console.log('Tokens sent to extension:', response);
+              }
+          });
+        } catch (e) {
+          console.error('Error sending tokens to Chrome extension:', e);
+          setMessage('An error occurred while sending tokens to the Chrome extension.');
+          setMessageType('error');
+        }
         setMessage('Login successful');
         setMessageType('success');
-  
+        
         setTimeout(() => {
           window.location.href = '/dashboard';
         }, 1500);
